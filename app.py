@@ -3,6 +3,8 @@ import json
 from bs4 import BeautifulSoup
 
 # 根据URL获取HTML
+
+
 def get_html(url):
     headers = {
         'Proxy-Connection': "keep-alive",
@@ -17,6 +19,8 @@ def get_html(url):
     return response.text
 
 # 获取一个paper url的内容，直接转成一个Python的字典
+
+
 def get_paper_detail(paper_url):
     paper_html = get_html(paper_url)
     paper_soup = BeautifulSoup(paper_html, "html.parser")
@@ -42,6 +46,7 @@ def get_paper_detail(paper_url):
 
 # 获取首页里面所有的链接
 def get_paper_urls(index_url):
+    print(f"crawl index_url:{index_url}")
     htmlSoup = BeautifulSoup(get_html(index_url), "html.parser")
     all_paper_dts = htmlSoup.find_all("dt")
     all_paper_urls = []
@@ -53,6 +58,8 @@ def get_paper_urls(index_url):
     return all_paper_urls
 
 # 将数据保存到json文件中
+
+
 def save_json(file_name, json_data):
     with open(f'{file_name}.json', 'w', encoding='utf-8') as f:
         json.dump(json_data, f, ensure_ascii=False, indent=4)
